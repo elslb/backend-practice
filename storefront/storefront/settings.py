@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions', # sessions is legacy and not used anymore, can even be deleted - used to be temp memory on server
     'django.contrib.messages', # for displaying one time notifications to user
     'django.contrib.staticfiles', # for serving images, css files etc.
-    'playground'
+    'playground',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'storefront.urls'
@@ -122,3 +124,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
