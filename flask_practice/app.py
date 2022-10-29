@@ -27,3 +27,33 @@ def create_store():
     new_store = {"name": request_data["name"], "items": []}
     stores.append(new_store)
     return new_store, 201 # Status code 201 is the default OK good
+
+
+# creating an endpoint to receive dynamic paths and add items to the store
+@app.post("/store/<string:name>/item")
+def create_item(name):
+    request_data = request.get_json()
+    for store in stores:    # looping through stores to create items in the store matching the name from the url
+        if store["name"] == name:
+            new_item = {"name": request_data["name"], "price": request_data["price"]}
+            store["items"].append(new_item)
+            return new_item, 201
+        return {"message": "Store not found!"}, 404
+
+
+# endpoint to get a specific store by name
+@app.get("/store/<string:name>")
+def get_store(name):
+    for store in stores:
+        if store["name"] == name:
+            return store
+        return {"message": "Store not found!"}, 404
+
+
+# endpoint to get only the items from a specific store
+@app.get("/store/<string:name>/item")
+def get_store_item(name):
+    for store in stores:
+        if store["name"] == name:
+            return {"items": store["items"]}
+        return {"message": "Store not found!"}, 404
