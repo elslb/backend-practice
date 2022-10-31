@@ -31,7 +31,7 @@ def create_store():
 
 # creating an endpoint to receive dynamic paths and add items to the store
 @app.post("/store/<string:name>/item")
-def create_item(name):
+def create_item(name): # name comes from the url portion 'string:name'
     request_data = request.get_json()
     for store in stores:    # looping through stores to create items in the store matching the name from the url
         if store["name"] == name:
@@ -50,7 +50,7 @@ def get_store(name):
         return {"message": "Store not found!"}, 404
 
 
-# endpoint to get only the items from a specific store
+# endpoint to get only the items from a specific store by name
 @app.get("/store/<string:name>/item")
 def get_store_item(name):
     for store in stores:
